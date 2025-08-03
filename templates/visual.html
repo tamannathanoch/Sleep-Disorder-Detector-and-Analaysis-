@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Visual Sleep Analysis - SleepWell{% endblock %}
+
+{% block content %}
+<div class="visual-page-container glow">
+  <h2 class="visual-heading">📊 Sleep Data Visualizations</h2>
+  <p class="visual-intro">Explore patterns, trends, and insights from your sleep data.</p>
+
+  <div class="visual-section">
+    <!-- Example Visualization Cards -->
+    <div class="visual-card">
+      <h3>😴 Sleep Duration Over Time</h3>
+      <img src="{{ url_for('static', filename='images/distribution.png') }}" alt="person having a sleep disorder or not" class="visual-image">
+    </div>
+
+    <div class="visual-card">
+      <h3>🌙 Sleep Quality Comparison</h3>
+      <img src="{{ url_for('static', filename='images/stress.png') }}" alt="stress level on the basis of sleep disorder" class="visual-image">
+    </div>
+
+    <div class="visual-card">
+      <h3>📈 Weekly Sleep Patterns</h3>
+      <img src="{{ url_for('static', filename='images/activites.png') }}" alt="Effect of activities on sleep" class="visual-image">
+    </div>
+  </div>
+
+  <div class="back-button">
+    <a href="{{ url_for('home') }}" class="btn-back">🏠 Back to Home</a>
+  </div>
+</div>
+
+<style>
+.visual-page-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(186, 104, 200, 0.25);
+  color: #fff;
+  text-align: center;
+}
+
+.visual-heading {
+  font-size: 2rem;
+  color: #ffd54f;
+  margin-bottom: 0.5rem;
+}
+
+.visual-intro {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-bottom: 2rem;
+}
+
+.visual-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.visual-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.visual-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(186, 104, 200, 0.3);
+}
+
+.visual-card h3 {
+  font-size: 1.2rem;
+  color: #f3e5f5;
+  margin-bottom: 1rem;
+}
+
+.visual-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.7rem 1.6rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+</style>
+{% endblock %}

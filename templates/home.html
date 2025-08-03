@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to SleepWell{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+  <div class="welcome-wrapper">
+    <div class="welcome-text">
+      <h1 class="main-title">
+        Welcome to <span class="highlight">SleepWell</span> <i class="fas fa-moon"></i>
+      </h1>
+      <p class="subtitle">Your personalized sleep health companion</p>
+      <p class="tagline">Wake up to a better you — one night at a time ✨</p>
+
+      <div class="fact-box glow">
+        <p id="fact"><i class="fas fa-spinner fa-spin"></i> Loading sleep facts...</p>
+      </div>
+
+      {% if session.get('logged_in') %}
+        <a href="{{ url_for('form') }}" class="cta-button pulse">
+          <i class="fas fa-bed"></i> Start Your Sleep Survey
+        </a>
+      {% else %}
+        <div class="auth-buttons">
+          <a href="{{ url_for('login') }}" class="cta-button">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
+          <a href="{{ url_for('signup') }}" class="cta-button secondary">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .welcome-wrapper {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 3rem;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .main-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #f4bfff;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+    color: #ddd;
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: #bbb;
+    margin-bottom: 2rem;
+  }
+
+  .fact-box {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(186, 104, 200, 0.3);
+    margin-bottom: 2rem;
+    color: #fff;
+    min-height: 60px;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #ba68c8, #9c27b0);
+    color: white;
+    box-shadow: 0 0 15px rgba(186, 104, 200, 0.4);
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ce93d8, #ab47bc);
+  }
+
+  .cta-button.secondary {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    margin-left: 1rem;
+  }
+
+  .cta-button.secondary:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .auth-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  @keyframes textFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  #fact {
+    animation: textFade 1s ease;
+  }
+
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 2.2rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+    }
+
+    .tagline {
+      font-size: 1rem;
+    }
+
+    .cta-button {
+      font-size: 1rem;
+      padding: 0.7rem 1.6rem;
+    }
+  }
+</style>
+
+<script>
+  const facts = [
+    { text: "😴 People who sleep 7–8 hours live longer and have healthier hearts.", icon: "fa-heart" },
+    { text: "🧠 Sleep helps consolidate memories and boosts creativity.", icon: "fa-brain" },
+    { text: "📉 Poor sleep increases the risk of depression by up to 60%.", icon: "fa-frown" },
+    { text: "📱 Avoid screens 1 hour before bed to improve sleep quality.", icon: "fa-mobile" },
+    { text: "🛌 Your body heals the most between 10PM and 2AM.", icon: "fa-clock" },
+    { text: "🧘 Night rituals like meditation help you fall asleep faster.", icon: "fa-spa" }
+  ];
+
+  let index = 0;
+  const factElement = document.getElementById("fact");
+
+  function showNextFact() {
+    const { text, icon } = facts[index];
+    factElement.innerHTML = `<i class="fas ${icon}"></i> ${text}`;
+    factElement.style.animation = 'none';
+    void factElement.offsetWidth;
+    factElement.style.animation = 'textFade 1s ease';
+    index = (index + 1) % facts.length;
+  }
+
+  showNextFact();
+  setInterval(showNextFact, 5000);
+</script>
+{% endblock %}

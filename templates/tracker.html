@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% block title %}Sleep Tracker - SleepWell{% endblock %}
+
+{% block content %}
+<section class="tracker-container glow">
+  <div class="tracker-header">
+    <h2><i class="fas fa-book"></i> Sleep Journal & Tracker</h2>
+    <p class="subtitle">Log your sleep patterns to identify trends and improvements</p>
+  </div>
+
+  <form method="POST" class="tracker-form">
+    <div class="form-grid">
+      <div class="form-group floating">
+        <label for="date">📅 Date</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+
+      <div class="form-group floating">
+        <label for="sleep_time">🌙 Sleep Time</label>
+        <input type="time" id="sleep_time" name="sleep_time" required>
+      </div>
+
+      <div class="form-group floating">
+        <label for="wake_time">☀️ Wake Time</label>
+        <input type="time" id="wake_time" name="wake_time" required>
+      </div>
+
+      <div class="form-group floating">
+        <label for="sleep_quality">⭐ Sleep Quality (1-10)</label>
+        <input type="number" id="sleep_quality" name="sleep_quality" min="1" max="10" required>
+      </div>
+
+      <div class="form-group floating">
+        <label for="mood">😌 Mood</label>
+        <select id="mood" name="mood" required>
+          <option value=""></option>
+          <option value="Very Happy">😊 Very Happy</option>
+          <option value="Happy">🙂 Happy</option>
+          <option value="Neutral">😐 Neutral</option>
+          <option value="Tired">😴 Tired</option>
+          <option value="Irritable">😠 Irritable</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width floating">
+        <label for="notes">📝 Notes</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="Write something..."></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary pulse">
+        <i class="fas fa-save"></i> Save Entry
+      </button>
+    </div>
+  </form>
+
+  {% if tracker_data %}
+  <div class="sleep-log">
+    <h3><i class="fas fa-history"></i> Your Sleep History</h3>
+    <div class="table-container">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Sleep Time</th>
+            <th>Wake Time</th>
+            <th>Quality</th>
+            <th>Mood</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in tracker_data %}
+          <tr>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.sleep_time }}</td>
+            <td>{{ entry.wake_time }}</td>
+            <td>
+              <div class="quality-rating" style="--rating: {{ entry.sleep_quality }};">
+                {{ entry.sleep_quality }}
+              </div>
+            </td>
+            <td>{{ entry.mood }}</td>
+            <td class="notes-cell">{{ entry.notes }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="back-button">
+    <a href="{{ url_for('home') }}" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+</section>
+
+<style>
+.tracker-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+.tracker-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.tracker-header h2 {
+  font-size: 3rem;
+  color: #f4bfff;
+}
+
+.tracker-header .subtitle {
+  font-size: 1.8rem;
+  color: #ccc;
+  margin-top: 1rem;
+}
+
+.tracker-form {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(186, 104, 200, 0.2);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.floating label {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #e1bee7;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ba68c8;
+  box-shadow: 0 0 10px rgba(186, 104, 200, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+  padding: 1rem 2.5rem;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(186,104,200,0.4);
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ce93d8, #ab47bc);
+}
+
+.sleep-log {
+  margin-top: 4rem;
+}
+
+.sleep-log h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.2rem;
+}
+
+.log-table th {
+  background: rgba(186, 104, 200, 0.2);
+  padding: 1rem;
+  color: #fff;
+  text-align: left;
+}
+
+.log-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #eee;
+}
+
+.log-table tr:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.quality-rating {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ba68c8 calc(var(--rating) * 10%),
+    rgba(255,255,255,0.1) 0
+  );
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+}
+
+.notes-cell {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sleep Wellness Tracker{% endblock %}</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Preload background images -->
+    <link rel="preload" as="image" href="{{ url_for('static', filename='images/stars.png') }}">
+    <link rel="preload" as="image" href="{{ url_for('static', filename='images/twinkling.png') }}">
+    <link rel="preload" as="image" href="{{ url_for('static', filename='images/shooting-star.png') }}">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            background: #0d0d1a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .stars, .twinkling, .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .stars {
+            background: url('{{ url_for("static", filename="images/stars.png") }}') repeat;
+            animation: moveStars 100s linear infinite;
+        }
+
+        .twinkling {
+            background: url('{{ url_for("static", filename="images/twinkling.png") }}') repeat;
+            animation: moveTwinkling 200s linear infinite;
+            opacity: 0.8;
+        }
+
+        .shooting-stars {
+            background: url('{{ url_for("static", filename="images/shooting-star.png") }}') no-repeat;
+            animation: shootStar 15s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: -10000px 5000px; }
+        }
+
+        @keyframes moveTwinkling {
+            from { background-position: 0 0; }
+            to { background-position: 10000px 10000px; }
+        }
+
+        @keyframes shootStar {
+            0% { transform: translateX(-100%) translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100vw) translateY(100vh); opacity: 0; }
+        }
+
+        .container {
+            padding: 2rem;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            padding: 12px;
+            cursor: pointer;
+            z-index: 10;
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover,
+        .navbar .active {
+            color: #ffd700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .flash-messages {
+            margin: 1rem 0;
+        }
+
+        .flash {
+            background: #ffd700;
+            color: #000;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="night-mode">
+
+    <!-- 🌌 Background Effects -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="shooting-stars"></div>
+
+    <!-- 🎵 Music -->
+    <audio id="bg-music" loop>
+        <source src="{{ url_for('static', filename='audio/calm.mp3') }}" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle" aria-label="Toggle music">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- 🌙 Navigation -->
+    {% if session.get('logged_in') %}
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}" class="{% if request.path == url_for('home') %}active{% endif %}">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="{{ url_for('form') }}" class="{% if request.path == url_for('form') %}active{% endif %}">
+                <i class="fas fa-clipboard-list"></i> Survey
+            </a>
+            <a href="{{ url_for('visual') }}" class="{% if request.path == url_for('visual') %}active{% endif %}">
+                <i class="fas fa-chart-bar"></i> Visuals
+            </a>
+            <a href="{{ url_for('tracker') }}" class="{% if request.path == url_for('tracker') %}active{% endif %}">
+                <i class="fas fa-book"></i> Tracker
+            </a>
+            <a href="{{ url_for('recommendations') }}" class="{% if request.path == url_for('recommendations') %}active{% endif %}">
+                <i class="fas fa-star"></i> Recommendations
+            </a>
+            <!-- ✅ Added About Us and Help -->
+            <a href="{{ url_for('about') }}" class="{% if request.path == url_for('about') %}active{% endif %}">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+            <a href="{{ url_for('help') }}" class="{% if request.path == url_for('help') %}active{% endif %}">
+                <i class="fas fa-question-circle"></i> Help
+            </a>
+            <a href="{{ url_for('logout') }}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </header>
+    {% endif %}
+
+    <!-- 💫 Main Page Block -->
+    <main class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 🌙 Footer -->
+    <footer>
+        <p>© 2025 SleepWell | <i class="fas fa-moon"></i> Sweet Dreams</p>
+    </footer>
+
+    <!-- 🎵 Music Toggle Script -->
+    <script>
+        const music = document.getElementById("bg-music");
+        const toggleBtn = document.getElementById("music-toggle");
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const musicState = localStorage.getItem('musicState');
+            if (musicState === 'playing') {
+                music.play().catch(e => console.log("Autoplay prevented:", e));
+                toggleBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                toggleBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                toggleBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                localStorage.setItem('musicState', 'playing');
+            } else {
+                music.pause();
+                toggleBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                localStorage.setItem('musicState', 'paused');
+            }
+        }
+
+        toggleBtn.addEventListener('click', toggleMusic);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                music.pause();
+            } else if (localStorage.getItem('musicState') === 'playing') {
+                music.play().catch(e => console.log("Autoplay prevented:", e));
+            }
+        });
+    </script>
+</body>
+</html>

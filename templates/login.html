@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Login - SleepWell{% endblock %}
+
+{% block content %}
+<div class="auth-container glow">
+    <div class="auth-header">
+        <i class="fas fa-lock-open auth-icon"></i>
+        <h2 class="form-title">Welcome Back</h2>
+        <p class="form-subtitle">Log in to continue your sleep journey</p>
+    </div>
+    
+    <form action="{{ url_for('login') }}" method="post" class="auth-form">
+        <div class="form-group floating">
+            <input type="email" name="email" id="email" placeholder=" " required>
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+        </div>
+        
+        <div class="form-group floating">
+            <input type="password" name="password" id="password" placeholder=" " required>
+            <label for="password"><i class="fas fa-key"></i> Password</label>
+        </div>
+        
+        <button type="submit" class="btn-primary pulse">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        
+        {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+        {% endif %}
+    </form>
+    
+    <div class="auth-footer">
+        <p>New here? <a href="{{ url_for('signup') }}" class="text-link">Create account</a></p>
+        <a href="{{ url_for('home') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Return home
+        </a>
+    </div>
+</div>
+{% endblock %}

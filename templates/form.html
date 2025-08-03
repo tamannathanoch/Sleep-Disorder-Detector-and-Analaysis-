@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+{% block title %}Sleep Survey Form - SleepWell{% endblock %}
+
+{% block content %}
+<div class="centered-wrapper">
+  <div class="form-container glow">
+    <div class="form-header">
+      <h2 class="form-title"><i class="fas fa-moon"></i> Sleep Health & Lifestyle Survey</h2>
+      <p class="form-subtitle">Help us understand your sleep patterns better</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('form') }}" class="survey-form">
+      <!-- Personal Information -->
+      <div class="form-section">
+        <h3 class="section-title"><i class="fas fa-user"></i> Personal Information</h3>
+
+        <div class="form-group floating">
+          <input type="number" name="age" id="age" min="10" max="100" placeholder=" " required>
+          <label for="age">📅 Age</label>
+        </div>
+
+        <div class="form-group floating">
+          <select name="gender" id="gender" required>
+            <option value=""></option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <label for="gender">⚧️ Gender</label>
+        </div>
+
+        <div class="form-group floating">
+          <select name="occupation" id="occupation" required>
+            <option value=""></option>
+            <option value="Student">Student</option>
+            <option value="Employed">Employed</option>
+            <option value="Self-employed">Self-employed</option>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Retired">Retired</option>
+            <option value="Other">Other</option>
+          </select>
+          <label for="occupation">💼 Occupation</label>
+        </div>
+      </div>
+
+      <!-- Sleep Patterns -->
+      <div class="form-section">
+        <h3 class="section-title"><i class="fas fa-bed"></i> Sleep Patterns</h3>
+
+        <div class="form-group floating">
+          <input type="number" step="0.1" name="sleep_duration" id="sleep_duration" min="0" max="24" placeholder=" " required>
+          <label for="sleep_duration">⏰ Average Sleep Duration (hours)</label>
+        </div>
+
+        <div class="form-group floating">
+          <input type="number" name="quality_of_sleep" id="quality_of_sleep" min="1" max="10" placeholder=" " required>
+          <label for="quality_of_sleep">⭐ Quality of Sleep (1-10)</label>
+        </div>
+      </div>
+
+      <!-- Health Metrics -->
+      <div class="form-section">
+        <h3 class="section-title"><i class="fas fa-heartbeat"></i> Health Metrics</h3>
+
+        <div class="form-group floating">
+          <input type="number" name="physical_activity" id="physical_activity" min="1" max="10" placeholder=" " required>
+          <label for="physical_activity">🏃‍♀️ Physical Activity Level (1-10)</label>
+        </div>
+
+        <div class="form-group floating">
+          <input type="number" name="stress_level" id="stress_level" min="1" max="10" placeholder=" " required>
+          <label for="stress_level">😥 Stress Level (1-10)</label>
+        </div>
+
+        <div class="form-group floating">
+          <select name="bmi_category" id="bmi_category" required>
+            <option value=""></option>
+            <option value="Underweight">Underweight</option>
+            <option value="Normal">Normal</option>
+            <option value="Overweight">Overweight</option>
+            <option value="Obese">Obese</option>
+          </select>
+          <label for="bmi_category">⚖️ BMI Category</label>
+        </div>
+
+        <div class="form-group floating">
+          <input type="text" name="blood_pressure" id="blood_pressure" pattern="\d{2,3}/\d{2,3}" placeholder=" " required>
+          <label for="blood_pressure">
+            🩸 Blood Pressure (e.g., 120/80)
+            <i class="fas fa-question-circle tooltip-icon" data-tooltip="
+Blood Pressure = Systolic/Diastolic
+🟢 Normal: 90/60 – 120/80 mmHg
+🟠 Low: Below 90/60
+🔴 High: Above 140/90
+Use digital BP monitor at rest for best accuracy."></i>
+          </label>
+          <small class="tip-text">Use a digital monitor or visit a nearby health center.</small>
+        </div>
+
+        <div class="form-group floating">
+          <input type="number" name="heart_rate" id="heart_rate" min="40" max="200" placeholder=" " required>
+          <label for="heart_rate">
+            ❤️ Heart Rate (bpm)
+            <i class="fas fa-question-circle tooltip-icon" data-tooltip="
+Heart Rate (BPM = Beats Per Minute)
+🟢 Normal: 60–100 bpm
+🟠 Low: <60 (often okay in athletes)
+🔴 High: >100 bpm (may indicate stress or issues)
+Use a smartwatch or wrist pulse method."></i>
+          </label>
+          <small class="tip-text">Use two fingers on your wrist, count beats for 30s × 2.</small>
+        </div>
+
+        <div class="form-group floating">
+          <input type="number" name="daily_steps" id="daily_steps" min="0" max="30000" placeholder=" " required>
+          <label for="daily_steps">👟 Average Daily Steps</label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary pulse">
+          <i class="fas fa-chart-line"></i> Submit & Analyze
+        </button>
+        <a href="{{ url_for('home') }}" class="btn-secondary">
+          <i class="fas fa-home"></i> Back Home
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.centered-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  padding: 3rem;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.form-title {
+  font-size: 2.8rem;
+  color: #f4bfff;
+}
+
+.form-subtitle {
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.floating label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #e1bee7;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ba68c8;
+  box-shadow: 0 0 10px rgba(186, 104, 200, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-primary, .btn-secondary {
+  font-size: 1.2rem;
+  padding: 0.8rem 2rem;
+  border-radius: 40px;
+  text-decoration: none;
+  margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+  border: none;
+  color: white;
+  box-shadow: 0 0 12px rgba(186,104,200,0.4);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ce93d8, #ab47bc);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.03);
+}
+
+.tooltip-icon {
+  margin-left: 6px;
+  color: #ffd700;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+}
+
+.tooltip-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 130%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 0.6rem;
+  border-radius: 8px;
+  white-space: pre-line;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  width: 260px;
+  z-index: 1000;
+}
+
+.tooltip-icon:hover::after {
+  opacity: 1;
+}
+
+.tip-text {
+  font-size: 0.9rem;
+  color: #ddd;
+  margin-top: 0.4rem;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 2rem;
+  }
+
+  .form-title {
+    font-size: 2.2rem;
+  }
+
+  .form-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+</style>
+{% endblock %}

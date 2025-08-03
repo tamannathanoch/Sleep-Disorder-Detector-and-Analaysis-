@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% block title %}❓ Help & Support{% endblock %}
+
+{% block content %}
+<div class="centered-wrapper">
+  <section class="help-container glow">
+    <div class="help-header">
+      <h2>🆘 Help Center</h2>
+      <p class="subtitle">🤝 We're here to support your sleep journey</p>
+    </div>
+
+    <div class="help-grid">
+      <div class="help-card">
+        <h3>❔ FAQs</h3>
+        <ul class="help-list">
+          <li>
+            <details>
+              <summary>🤔 How do I interpret my sleep results?</summary>
+              <p>Your results show predicted risk levels based on scientific models.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>⚠️ What if I see high risk predictions?</summary>
+              <p>Consult our recommendations and consider professional advice.</p>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>🔄 Can I retake the survey?</summary>
+              <p>Yes! Retake anytime to track changes.</p>
+            </details>
+          </li>
+        </ul>
+      </div>
+
+      <div class="help-card">
+        <h3>📞 Contact Us</h3>
+        <ul class="contact-list">
+          <li>📧 <a href="mailto:thanochtamanna@gmail.com">thanochtamanna@gmail.com</a></li>
+          <li>📱 <a href="tel:+917289983416">+91-7289983416</a></li>
+          <li>🕙 Mon-Fri, 10AM–6PM</li>
+        </ul>
+      </div>
+
+      <div class="help-card">
+        <h3>📚 Resources</h3>
+        <ul class="resource-list">
+          <li><a href="{{ url_for('recommendations') }}">🌟 Personalized Tips</a></li>
+          <li><a href="{{ url_for('tracker') }}">📝 Sleep Journal</a></li>
+          <li><a href="{{ url_for('about') }}">ℹ️ About This Project</a></li>
+        </ul>
+      </div>
+
+      <div class="help-card">
+        <h3>💬 Feedback</h3>
+        <form class="feedback-form">
+          <textarea placeholder="Share your thoughts..." required></textarea>
+          <button type="submit" class="btn-primary">✉️ Send Feedback</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 🎨 Enhanced Local Styling -->
+<style>
+.centered-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.help-container {
+  max-width: 1400px;
+  width: 95%;
+  padding: 3rem;
+  font-size: 1.6rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.help-header h2 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #f4bfff;
+  text-align: center;
+}
+
+.help-header .subtitle {
+  font-size: 1.8rem;
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 2.5rem;
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.help-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 20px;
+  font-size: 1.4rem;
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+
+.help-card h3 {
+  margin-bottom: 1.2rem;
+  color: #ffd700;
+  font-size: 2rem;
+}
+
+.help-list, .contact-list, .resource-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.help-list details summary {
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.help-list details p {
+  margin-top: 0.5rem;
+  color: #ddd;
+}
+
+.contact-list li,
+.resource-list li {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.resource-list a {
+  color: #f4bfff;
+  text-decoration: none;
+}
+
+.resource-list a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  padding: 1.2rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  resize: vertical;
+  min-height: 150px;
+}
+
+.btn-primary {
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 0 12px rgba(186,104,200,0.5);
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ce93d8, #ab47bc);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block title %}🌙 About SleepWell{% endblock %}
+
+{% block content %}
+<div class="centered-wrapper">
+  <section class="about-container glow">
+    <div class="about-header">
+      <h1>🌜 About SleepWell</h1>
+      <p class="subtitle">✨ Transforming sleep health through technology</p>
+    </div>
+
+    <div class="mission-cards">
+      <div class="mission-card">
+        <h3>❤️ Our Mission</h3>
+        <p>To empower individuals with personalized sleep insights and awareness using data-driven tools and engaging content.</p>
+      </div>
+      <div class="mission-card">
+        <h3>🔬 Science-Backed</h3>
+        <p>We leverage real-world datasets, predictive models, and expert resources to ensure authenticity in our suggestions.</p>
+      </div>
+      <div class="mission-card">
+        <h3>👥 User-Centric</h3>
+        <p>From sleep quizzes to Ayurvedic tips, everything is designed to meet your needs in a fun and accessible way.</p>
+      </div>
+      <div class="mission-card">
+        <h3>🌱 Always Evolving</h3>
+        <p>We believe in continuous growth—adding new features, recommendations, and wellness tips regularly.</p>
+      </div>
+    </div>
+
+    <div class="creator-section">
+      <h2>👩‍💻 Meet the Creator</h2>
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="{{ url_for('static', filename='images/tamanna.jpg') }}" alt="Tamanna Thanoch" class="profile-pic">
+        </div>
+        <div class="creator-info">
+          <h3>🌸 Tamanna Thanoch</h3>
+          <p class="role">Founder & Developer</p>
+          <div class="creator-links">
+            <a href="mailto:thanochtamanna@gmail.com">📧 Email</a>
+            <a href="tel:+917289983416">📞 Call</a>
+            <a href="https://github.com/tamannathanoch" target="_blank">💻 GitHub</a>
+            <a href="https://www.linkedin.com/in/tamanna-thanoch-831088247/" target="_blank">🔗 LinkedIn</a>
+          </div>
+          <p class="about-me">
+            I'm an MCA student and passionate developer who loves building meaningful, data-driven projects that solve real-world problems. Through SleepWell, I aim to combine tech, health, and creativity to help others sleep better. 💜
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-button">
+      <a href="{{ url_for('home') }}" class="btn-back">↩️ Back to Home</a>
+    </div>
+  </section>
+</div>
+
+<style>
+.centered-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.about-container {
+  max-width: 1200px;
+  width: 95%;
+  padding: 3rem;
+  font-size: 1.6rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.about-header h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+}
+
+.about-header .subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
+  color: #ddd;
+}
+
+.mission-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.mission-card {
+  flex: 1 1 250px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.creator-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.creator-card {
+  background: rgba(255,255,255,0.08);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+.creator-photo {
+  margin-bottom: 1rem;
+}
+
+.profile-pic {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f4bfff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.creator-info h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.creator-info .role {
+  font-size: 1.2rem;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
+.creator-links a {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #f4bfff;
+  border: 1px solid #f4bfff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.creator-links a:hover {
+  background-color: #f4bfff;
+  color: #0d0d1a;
+}
+
+.about-me {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  color: #eee;
+  line-height: 1.6;
+}
+
+.back-button {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.btn-back {
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 0 12px rgba(186,104,200,0.5);
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ce93d8, #ab47bc);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up - SleepWell{% endblock %}
+
+{% block content %}
+<section class="auth-container glow">
+  <div class="auth-header">
+    <h2><i class="fas fa-user-plus"></i> Create Your Account</h2>
+    <p class="subtitle">Join SleepWell to track and improve your sleep</p>
+  </div>
+
+  <form action="{{ url_for('signup') }}" method="post" class="auth-form">
+    <div class="form-group floating">
+      <input type="text" name="name" id="name" placeholder=" " required>
+      <label for="name"><i class="fas fa-user"></i> Full Name</label>
+    </div>
+
+    <div class="form-group floating">
+      <input type="email" name="email" id="email" placeholder=" " required>
+      <label for="email"><i class="fas fa-envelope"></i> Email</label>
+    </div>
+
+    <div class="form-group floating">
+      <input type="password" name="password" id="password" placeholder=" " required>
+      <label for="password"><i class="fas fa-lock"></i> Password</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary pulse">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
+    </div>
+
+    {% if error %}
+    <div class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ error }}
+    </div>
+    {% endif %}
+  </form>
+
+  <div class="auth-footer">
+    <p>Already have an account? <a href="{{ url_for('login') }}" class="text-link">Login here</a></p>
+    <a href="{{ url_for('home') }}" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+</section>
+
+<style>
+  .auth-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .auth-form {
+    margin-bottom: 2rem;
+  }
+
+  .error-message {
+    color: #ff6b6b;
+    padding: 0.8rem;
+    background: rgba(255,0,0,0.1);
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .auth-footer {
+    text-align: center;
+  }
+
+  .auth-footer p {
+    margin-bottom: 1rem;
+  }
+</style>
+{% endblock %}

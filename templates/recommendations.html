@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}💡 Recommendations - SleepWell{% endblock %}
+
+{% block content %}
+<section class="recommend-container glow">
+  <div class="recommend-header">
+    <h2>✨ Personalized Sleep Recommendations</h2>
+    <p class="subtitle">🌙 Curated resources to help you sleep like a baby</p>
+  </div>
+
+  <div class="recommend-grid">
+    <!-- 🧠 Articles Card -->
+    <div class="resource-card">
+      <div class="card-icon">📚</div>
+      <h3>📖 Articles & Research</h3>
+      <ul class="resource-list">
+        <li><a href="https://www.self.com/story/sundar-pichai-non-sleep-deep-rest" target="_blank">🌟 NSDR - Sundar Pichai's Secret</a></li>
+        <li><a href="https://www.sleepfoundation.org/how-sleep-works" target="_blank">🌌 Understanding How Sleep Works</a></li>
+        <li><a href="https://www.sleepfoundation.org/insomnia" target="_blank">💤 Insomnia: Causes and Remedies</a></li>
+      </ul>
+    </div>
+
+    <!-- 🎧 Podcasts Card -->
+    <div class="resource-card">
+      <div class="card-icon">🎧</div>
+      <h3>🎙️ Sleep Podcasts</h3>
+      <ul class="resource-list">
+        <li><a href="https://www.sleepwithmepodcast.com/" target="_blank">😴 Sleep With Me – Boring Bedtime</a></li>
+        <li><a href="https://www.getsleepy.com/" target="_blank">🌙 Get Sleepy – Sleep Stories</a></li>
+        <li><a href="https://www.nothingmuchhappens.com/" target="_blank">🧘‍♀️ Nothing Much Happens</a></li>
+        <li><a href="https://www.sleepwhispers.com/" target="_blank">🌬️ Sleep Whispers – ASMR Calm</a></li>
+      </ul>
+    </div>
+
+    <!-- 📺 Videos Card -->
+    <div class="resource-card">
+      <div class="card-icon">📺</div>
+      <h3>🎬 Yoga Nidra & Sleep Videos</h3>
+      <ul class="resource-list">
+        <li><a href="https://www.youtube.com/watch?v=8mM5Oks8yZc" target="_blank">🧘 30 Min Yoga Nidra – Ally Boothroyd</a></li>
+        <li><a href="https://www.youtube.com/watch?v=7QXV3yEt9ss" target="_blank">😌 2 Hr Yoga Nidra for Insomnia</a></li>
+        <li><a href="https://m.youtube.com/watch?v=agiU-TVrVcw" target="_blank">🌙 1.5 Hr Deep Sleep Yoga Nidra</a></li>
+      </ul>
+    </div>
+
+    <!-- 🌿 Ayurveda Card -->
+    <div class="resource-card">
+      <div class="card-icon">🌿</div>
+      <h3>🪔 Ayurveda for Sleep</h3>
+      <ul class="resource-list">
+        <li>🌸 Sip warm <strong>ashwagandha or chamomile tea</strong> before bed</li>
+        <li>🛀 Try <strong>Abhyanga</strong> – warm oil massage to soothe nerves</li>
+        <li>🧘‍♀️ Practice <strong>Yoga Nidra</strong> post sunset for deep calm</li>
+        <li>🔥 Avoid heavy/spicy foods after 7 PM for better dosha balance</li>
+      </ul>
+    </div>
+
+    <!-- 🤝 Support Card -->
+    <div class="resource-card">
+      <div class="card-icon">🛎️</div>
+      <h3>👨‍⚕️ Support</h3>
+      <ul class="resource-list">
+        <li>📧 <a href="mailto:info@sleepfoundation.org">info@sleepfoundation.org</a></li>
+        <li>🌐 <a href="https://www.sleepfoundation.org" target="_blank">sleepfoundation.org</a></li>
+        <li>🏥 <a href="https://www.sleepfoundation.org/find-a-center" target="_blank">Find a Sleep Clinic Near You</a></li>
+        <li>🌍 <a href="https://www.sleephealth.org/" target="_blank">National Sleep Health Foundation</a></li>
+        <li>🧠 <a href="https://www.sleepeducation.org/" target="_blank">American Academy of Sleep Medicine</a></li>
+        <li>💬 <a href="https://www.7cups.com" target="_blank">7 Cups – Free Emotional Support</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="back-button">
+    <a href="{{ url_for('home') }}" class="btn-back pulse">🏠 Back to Home</a>
+  </div>
+</section>
+
+<style>
+  .recommend-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+
+  .recommend-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .recommend-header h2 {
+    font-size: 2.5rem;
+    color: #e1bee7;
+  }
+
+  .subtitle {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .resource-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(186, 104, 200, 0.3);
+  }
+
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .resource-card h3 {
+    color: #ba68c8;
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .resource-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .resource-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+  }
+
+  .resource-list a {
+    color: #f4bfff;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+  }
+
+  .resource-list a:hover {
+    color: #ffccff;
+    text-decoration: underline;
+  }
+
+  .back-button {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .btn-back {
+    background: #ba68c8;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+
+  .btn-back:hover {
+    background: #ce93d8;
+  }
+
+  @media (max-width: 768px) {
+    .recommend-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .recommend-header h2 {
+      font-size: 2rem;
+    }
+  }
+</style>
+{% endblock %}

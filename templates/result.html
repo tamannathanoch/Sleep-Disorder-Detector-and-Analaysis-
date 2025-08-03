@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Sleep Risk Result - SleepWell{% endblock %}
+
+{% block content %}
+<div class="result-container glow">
+
+  <!-- 🧠 Risk Prediction Summary -->
+  <div class="result-header">
+    <h2 class="result-title">🧠 Prediction Result</h2>
+    <p class="risk-score {{ color_class }}">
+      {{ risk_percentage }}% Risk — <strong>{{ prediction_result }}</strong>
+    </p>
+
+    {% if sentiment == "positive" %}
+      <p class="sentiment positive">💤 You’re doing great! Keep it up 🧘‍♀️</p>
+    {% elif sentiment == "neutral" %}
+      <p class="sentiment neutral">😴 Your sleep could be better. Let’s optimize it 🌓</p>
+    {% else %}
+      <p class="sentiment negative">⚠️ Your sleep needs serious care 🌙</p>
+    {% endif %}
+  </div>
+
+  <!-- 📝 Input Summary -->
+  <div class="summary-box">
+    <h3 class="section-title"><i class="fas fa-info-circle"></i> Your Input Summary</h3>
+    <ul class="summary-list">
+      {% for key, value in user_data.items() %}
+        <li><strong>{{ key.replace("_", " ") }}:</strong> {{ value }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- 💡 Personalized Tips -->
+  <div class="tips-box">
+    <h3 class="section-title"><i class="fas fa-lightbulb"></i> Personalized Tips</h3>
+    <ul class="tips-list">
+      {% for tip in health_tips %}
+        <li><i class="fas fa-check-circle"></i> {{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- 📄 Action Buttons -->
+  <div class="result-actions">
+    <a href="{{ url_for('reportdownload') }}" class="btn-primary">
+      <i class="fas fa-file-download"></i> Download Full Report
+    </a>
+    <a href="{{ url_for('recommendations') }}" class="btn-secondary">
+      <i class="fas fa-book-open"></i> Explore Resources
+    </a>
+    <a href="{{ url_for('form') }}" class="btn-secondary">
+      <i class="fas fa-redo"></i> Retake Survey
+    </a>
+  </div>
+</div>
+
+<!-- 🎨 Styling -->
+<style>
+.result-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(186, 104, 200, 0.25);
+  color: #fff;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.result-title {
+  font-size: 2.2rem;
+  color: #f5b3ff;
+  margin-bottom: 0.6rem;
+}
+
+.risk-score {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0.3rem 0 1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffd700;
+  border: 2px dashed #ffd700;
+}
+
+.sentiment {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+}
+
+.positive { color: #4caf50; }
+.neutral  { color: #ffc107; }
+.negative { color: #f44336; }
+
+.section-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ffd700;
+}
+
+.summary-box, .tips-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #ba68c8;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 15px;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+}
+
+.summary-list, .tips-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.summary-list li, .tips-list li {
+  margin: 0.6rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.tips-list li i {
+  margin-right: 0.5rem;
+  color: #a7ffeb;
+}
+
+.result-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+  color: white;
+  box-shadow: 0 0 12px rgba(186, 104, 200, 0.4);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ce93d8, #ab47bc);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+</style>
+{% endblock %}
